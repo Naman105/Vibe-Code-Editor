@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import { ThemeProvider } from "@/components/providers/theme-providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,9 +31,16 @@ export default async function RootLayout({
 
   return (
     <SessionProvider session={session}>
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
         {children}
+        </ThemeProvider>
         </body>
    </html>
     </SessionProvider>
